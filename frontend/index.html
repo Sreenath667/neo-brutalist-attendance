@@ -5,60 +5,72 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Neo Brutalist Attendance</title>
   <link rel="stylesheet" href="css/styles.css">
+  <meta name="color-scheme" content="dark light">
 </head>
-<body>
+<body class="theme-dark">
   <div class="container">
     <header class="header">
-      <h1>Neo Brutalist Attendance</h1>
-      <div class="auth">
-        <a class="btn google" href="http://localhost:5000/auth/google">Sign in with Google</a>
+      <div class="brand">
+        <h1>Neo Brutalist Attendance</h1>
+        <div class="tag">Simple · Fast · Minimal</div>
+      </div>
+      <div class="header-controls">
+        <button id="themeToggle" class="icon-btn" title="Toggle theme">🌙</button>
+        <a id="signinLink" class="btn google" href="http://localhost:5000/auth/google">Sign in</a>
+        <button id="signoutBtn" class="btn ghost" style="display:none">Sign out</button>
       </div>
     </header>
 
     <main>
-      <section class="profile" id="profile">
-        <h2>Your Profile</h2>
-        <div id="userInfo">Not signed in</div>
+      <section class="row">
+        <aside class="card profile" id="profile">
+          <h2>Your Profile</h2>
+          <div id="userInfo" class="profile-inner">Not signed in</div>
+        </aside>
+
+        <section class="card attendance" id="attendance">
+          <h2>Mark Attendance</h2>
+          <form id="attendanceForm" class="form-grid">
+            <label>Date: <input type="date" id="date" required></label>
+            <label>Period:
+              <select id="period" required>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+              </select>
+            </label>
+            <label>Status:
+              <select id="status">
+                <option value="present">Present</option>
+                <option value="absent">Absent</option>
+                <option value="leave">Leave</option>
+              </select>
+            </label>
+            <label>Subject: <input type="text" id="subject" placeholder="Optional"></label>
+            <div class="form-actions">
+              <button type="submit" class="btn primary">Mark</button>
+              <div id="result" class="muted"></div>
+            </div>
+          </form>
+        </section>
       </section>
 
-      <section class="attendance" id="attendance">
-        <h2>Mark Attendance</h2>
-        <form id="attendanceForm">
-          <label>Date: <input type="date" id="date" required></label>
-          <label>Period: 
-            <select id="period" required>
-              <option value="1">1</option>
-              <option value="2">2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="5">5</option>
-              <option value="6">6</option>
-              <option value="7">7</option>
-            </select>
-          </label>
-          <label>Status:
-            <select id="status">
-              <option value="present">Present</option>
-              <option value="absent">Absent</option>
-              <option value="leave">Leave</option>
-            </select>
-          </label>
-          <label>Subject: <input type="text" id="subject"></label>
-          <button type="submit" class="btn">Mark</button>
-        </form>
-        <div id="result"></div>
-      </section>
-
-      <section class="summary" id="summary">
+      <section class="card summary" id="summary">
         <h2>Attendance Summary</h2>
         <div id="summaryContent">No data</div>
       </section>
     </main>
 
     <footer>
-      <p>Built with neo-brutalist aesthetics.</p>
+      <p>Built with neo-brutalist aesthetics. View on <a href="https://github.com/Sreenath667/neo-brutalist-attendance">GitHub</a>.</p>
     </footer>
   </div>
+
+  <div id="toast" class="toast" aria-live="polite" style="display:none"></div>
 
   <script src="js/app.js"></script>
 </body>

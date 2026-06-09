@@ -90,6 +90,24 @@ document.getElementById('signoutBtn')?.addEventListener('click', signOut);
 
 fetchProfile();
 
+// Dev sign-in helper (only show on localhost)
+const devSignInBtn = document.getElementById('devSignInBtn');
+if (devSignInBtn && (location.hostname === 'localhost' || location.hostname === '127.0.0.1')) {
+  devSignInBtn.style.display = 'inline-flex';
+  devSignInBtn.addEventListener('click', async () => {
+    const name = prompt('Name', 'Dev User');
+    if (!name) return;
+    const email = prompt('Email', 'dev@example.com');
+    const role = prompt('Role (student|faculty)', 'student');
+    try {
+      const res = await fetch(`${API_BASE.replace('/api','')}/auth/mock-login`, { method: 'POST', credentials: 'include', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ _id: '000000000000000000000000', name, email, role }) });
+      if (!res.ok) throw new Error('mock login failed');
+      await fetchProfile();
+      showToast('Dev signed in');
+    } catch (e) { showToast('Dev sign-in failed'); }
+  });
+}
+
 // Attendance form
 const attendanceForm = document.getElementById('attendanceForm');
 if (attendanceForm) attendanceForm.addEventListener('submit', async (e) => {
